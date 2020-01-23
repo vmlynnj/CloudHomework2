@@ -6,7 +6,7 @@ import model.PerfectThread;
 public class Main {
 
 	public static void main(String[] args) {
-		/*
+		
 		int threadAmount = Integer.parseInt(args[0]);
 		Thread[] pool = new Thread[threadAmount];
 		Thread thread1 = new Thread(new PerfectThread(0,5000));
@@ -17,18 +17,19 @@ public class Main {
 		try {
 			thread1.join();
 			thread2.join();
-			int[] perfects = new int[500];
-			thread1.getPerfects
+			//int[] perfects = new int[500];
+			for(int curr: PerfectThread.perfects) {
+				System.out.println(curr + " ");
+			}
+			
 		} catch (Exception ie) {
 			
 		}
-		*
 		
 		
-		for(int i = 0; i< threadAmount; i++) {
-			Thread thread = new Thread(new PerfectThread());
-		}
-		*/
+		
+		
+		/*
 		PerfectNumber pfn = new PerfectNumber();
 		int[] perfects = pfn.findPerfects();
 		int next = 0;
@@ -39,6 +40,7 @@ public class Main {
 				System.out.print(", ");
 			}
 		}
+		*/
 	}
 
 }
