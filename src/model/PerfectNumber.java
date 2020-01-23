@@ -21,11 +21,15 @@ public class PerfectNumber {
 				if(i % j == 0 ) {
 					sum +=  j;
 				}
+				if(sum > i) {
+					j = i+1;
+				}
 			}
 			if(sum == i) {
 				perfects[currIndex] = i;
 				currIndex ++;
 			}
+			sum = 1;
 		}
 		return perfects;
 	}
