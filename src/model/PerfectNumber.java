@@ -1,5 +1,7 @@
 package model;
 
+import java.util.ArrayList;
+
 public class PerfectNumber {
 	public static int upperLimit =1000000;
 	public static int lowerLimit = 0;
@@ -12,9 +14,9 @@ public class PerfectNumber {
 		PerfectNumber.lowerLimit = lowerLimit;
 	}
 	
-	public int[] findPerfects() {
-		int[] perfects = new int[upperLimit/8];
-		int currIndex = 0;
+	public ArrayList<Integer> findPerfects() {
+		System.out.println("HErE");
+		ArrayList<Integer> perfects = new ArrayList<Integer>();
 		int sum = 1;
 		for(int i = lowerLimit; i<upperLimit; i+=2) {
 			for (int j=2; j< i ; j++) {
@@ -26,11 +28,11 @@ public class PerfectNumber {
 				}
 			}
 			if(sum == i) {
-				perfects[currIndex] = i;
-				currIndex ++;
+				perfects.add(i);
 			}
 			sum = 1;
 		}
+		System.out.println("FINISH");
 		return perfects;
 	}
 	
