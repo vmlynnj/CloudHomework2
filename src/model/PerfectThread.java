@@ -1,12 +1,13 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Vector;
 
 public class PerfectThread implements Runnable {
 	private int upper;
 	private int lower;
 	
-	public static final ArrayList<Integer> perfects = new ArrayList<Integer>();
+	public static final Vector<Long> perfects = new Vector<Long>();
 	
 	public PerfectThread(int upper, int lower) {
 		this.upper = upper;
@@ -18,8 +19,8 @@ public class PerfectThread implements Runnable {
 	public synchronized void run() {
 		System.out.println("here upper: "+ this.upper + " lower: "+ this.lower);
 		PerfectNumber generator = new PerfectNumber(this.upper, this.lower);
-		ArrayList<Integer> perfects = generator.findPerfects();
-		for(Integer curr: perfects) {
+		Vector<Long> perfects = generator.findPerfects();
+		for(Long curr: perfects) {
 			System.out.println("HERE");
 			PerfectThread.perfects.add(curr);
 		}
