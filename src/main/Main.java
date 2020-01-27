@@ -11,27 +11,22 @@ import model.PerfectThread;
 public class Main {
 
 	public static void main(String[] args) {
-		Vector<Integer> vector = new Vector<Integer>();
+		Vector<Long> vector = new Vector<Long>();
 		PerfectNumber pfn = new PerfectNumber();
-		/*
+		
 		Runnable runny1 = () -> {
-			vector.addAll(pfn.findPerfects(0,5000));
-		};
-		Runnable runny2 = () -> {
-			vector.addAll(pfn.findPerfects(5000,10000));
+			vector.addAll(pfn.findPerfects());
 		};
 		
-		*/
-		Runnable runny1 = new PerfectThread(000,5000);
-		Runnable runny2 = new PerfectThread(5000,10000);
-		ExecutorService pool = Executors.newFixedThreadPool(2); 
-
-		
-		pool.execute(runny1);
-		pool.execute(runny2);
-		
-		
-		pool.shutdown();
+		Thread t = new Thread(runny1);
+		t.start();
+		try {
+			//thread1.join(0);
+			//thread2.join(0);
+			t.join();
+		} catch (Exception ie) {
+			
+		}
 		/*
 		Thread t = new Thread(runny1);
 		t.start();
@@ -61,7 +56,7 @@ public class Main {
 		
 		System.out.println("Size: "+vector);
 		
-		for(int curr: vector) {
+		for(long curr: vector) {
 			System.out.println(curr + " ");
 		}
 		/*

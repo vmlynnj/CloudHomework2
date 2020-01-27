@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Vector;
 
 public class PerfectNumber {
-	public static long upperLimit =10000;
+	public static long upperLimit =1000000;
 	public static long lowerLimit = 0;
 	
 	public PerfectNumber() {
@@ -41,13 +41,14 @@ public class PerfectNumber {
 	public Vector<Long> findPerfectsTriangles() {
 		System.out.println("HErE");
 		Vector<Long> perfects = new Vector<Long>();
-		long count = 1;
+		long count = 2;
 		long sum =1;
 		long triangle = PerfectNumber.lowerLimit;
-		while(triangle <=upperLimit) {
+		while(triangle <= upperLimit) {
 			triangle = (count*(count+1))/2;
-			for(long i = 0; i<triangle; i++) {
-				if(i%triangle==0) {
+
+			for(long i = 2; i<triangle; i++) {
+				if(triangle%i==0) {
 					sum += i;
 				}
 				if(sum >triangle) {
@@ -57,6 +58,7 @@ public class PerfectNumber {
 			if(sum == triangle) {
 				perfects.add(triangle);
 			}
+			
 			sum = 1;
 			count++;
 					
