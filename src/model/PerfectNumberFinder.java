@@ -8,7 +8,7 @@ public class PerfectNumberFinder {
 	private long lowerLimit;
 	
 	public PerfectNumberFinder() {
-		this.upperLimit = 10;
+		this.upperLimit = 10000;
 		this.lowerLimit = 0;
 	}
 	
@@ -38,12 +38,12 @@ public class PerfectNumberFinder {
 		return perfects;
 	}
 	
-	public Vector<Long> findPerfectsTriangles() {
+	public Vector<Long> findPerfectsTriangles(int upper, int lower) {
 		Vector<Long> perfects = new Vector<Long>();
 		long count = 2;
 		long sum =1;
-		long triangle = this.lowerLimit;
-		while(triangle <= this.upperLimit) {
+		long triangle = lower;
+		while(triangle <= upper) {
 			triangle = (count*(count+1))/2;
 
 			for(long i = 2; i<triangle; i++) {
