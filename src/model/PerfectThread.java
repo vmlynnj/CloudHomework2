@@ -18,7 +18,7 @@ public class PerfectThread implements Runnable {
 	@Override
 	public synchronized void run() {
 		System.out.println("here upper: "+ this.upper + " lower: "+ this.lower);
-		PerfectNumber generator = new PerfectNumber(this.upper, this.lower);
+		PerfectNumberFinder generator = new PerfectNumberFinder(this.upper, this.lower);
 		Vector<Long> perfects = generator.findPerfects();
 		for(Long curr: perfects) {
 			System.out.println("HERE");

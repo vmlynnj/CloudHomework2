@@ -5,69 +5,54 @@ import java.util.Vector;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import model.PerfectNumber;
+import model.PerfectNumberFinder;
 import model.PerfectThread;
 
 public class Main {
 
 	public static void main(String[] args) {
-		Vector<Long> vector = new Vector<Long>();
-		PerfectNumber pfn = new PerfectNumber();
+		System.out.println("100 000 000");
+		long start_time = System.currentTimeMillis();
+		PerfectNumberFinder finder = new PerfectNumberFinder(0,100000000);
+		Vector<Long> perfects = finder.findPerfectsTriangles();
 		
-		Runnable runny1 = () -> {
-			vector.addAll(pfn.findPerfects());
-		};
+        long end_time = System.currentTimeMillis();
+
+		long elapsed_time = (end_time - start_time);
 		
-		Thread t = new Thread(runny1);
-		t.start();
-		try {
-			//thread1.join(0);
-			//thread2.join(0);
-			t.join();
-		} catch (Exception ie) {
-			
-		}
-		/*
-		Thread t = new Thread(runny1);
-		t.start();
+		System.out.println("Elasped time: "+ elapsed_time + " millis");
 		
+		System.out.println("Size: "+perfects.size());
 		
-		//int threadAmount = Integer.parseInt(args[0]);
-		//Thread[] pool = new Thread[threadAmount];
-		/*
-		PerfectThread pt1 = new PerfectThread(0,5000);
-		PerfectThread pt2 = new PerfectThread(5000,10000);
-		
-		Thread thread1 = new Thread(pt1);
-		Thread thread2 = new Thread(pt2);
-		
-		
-		thread1.start();
-		thread2.start();
-		
-		try {
-			//thread1.join(0);
-			//thread2.join(0);
-			t.join();
-		} catch (Exception ie) {
-			
-		}
-		*/
-		
-		System.out.println("Size: "+vector);
-		
-		for(long curr: vector) {
+		for(long curr: perfects) {
 			System.out.println(curr + " ");
 		}
+		
+		
+		//Threads  1M
 		/*
-		PerfectNumber pfn = new PerfectNumber();
-		ArrayList<Integer> perfects = pfn.findPerfects();
-		int next = 0;
-		for(Integer curr : perfects) {
-			System.out.print(curr + ", ");
-			next++;
-			}
-			*/
+		System.out.println("10 000 000");
+		long start_time2 = System.currentTimeMillis();
+		PerfectNumberFinder finder2 = new PerfectNumberFinder(0, 10000000);
+		Vector<Long> perfects2 = finder2.findPerfectsTriangles();
+		
+        long end_time2 = System.currentTimeMillis();
+
+		long elapsed_time2 = (end_time2 - start_time2);
+		
+		System.out.println("Elasped time: "+ elapsed_time2 + " millis");
+		
+		System.out.println("Size: "+perfects2.size());
+		
+		for(long curr: perfects2) {
+			System.out.println(curr + " ");
+		}*/
+		
+		//Threads 10M
+		
+		
+		
+		
 		}
 		
 		
