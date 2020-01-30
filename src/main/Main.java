@@ -9,27 +9,40 @@ import model.PerfectNumberFinder;
 import model.PerfectThread;
 
 public class Main {
-	public static final long LIMIT = (long) 3000000000.0; 
-	public static long upper = 0;
-	public static long lower =0;
+	public static final long LIMIT = (long) 30000.0; 
 
 	public static void main(String[] args) {
 		int threadAmount = Integer.parseInt(args[0]);
 		Thread[] pool = new Thread[threadAmount];
+		Object lock  = new Object();
 		PerfectNumberFinder finder = new PerfectNumberFinder();
 		Vector<Long> perfects = new Vector<Long>();
 		long increment = LIMIT/threadAmount;
-		Main.lower = 0;
-		Main.upper = increment;
-		Runnable task = () -> perfects.addAll(finder.findPerfectsTriangles(Main.lower, Main.upper));
+
+		
 		long start_time = System.currentTimeMillis();
+		long[] upperBounds = new long[threadAmount];
+		long[] lowerBounds = new long[threadAmount];
+		lowerBounds[0] = 0;
+		upperBounds[0] = increment;
+		for(int k = 1; k<threadAmount; k++) {
+			lowerBounds[k] =upperBounds[k-1];
+			upperBounds[k] = upperBounds[k-1] + increment; 
+		}
+		
+		
 		for(int i=0; i<threadAmount; i++) {
+			Runnable task = () -> {
+				System.out.println("BOUNDS:: Lower: "+ lowerBounds[i] + " Upper: "+ upperBounds[i]);
+				perfects.addAll(finder.findPerfectsTriangles(lowerBounds[i], upperBounds[i]));
+			
+			};
 			Thread thread = new Thread(task);
 			pool[i] = thread;
 			pool[i].start();
-			Main.lower = Main.upper;
-			Main.upper += increment;
+			System.out.println("BOUNDS:: Lower: "+ lowerBounds[i] + " Upper: "+ upperBounds[i]);
 		}
+		
 		try {
 			for(int j = 0; j < threadAmount; j++) {
 				pool[j].join();

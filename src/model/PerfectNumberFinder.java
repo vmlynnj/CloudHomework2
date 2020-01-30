@@ -38,7 +38,7 @@ public class PerfectNumberFinder {
 		return perfects;
 	}
 	
-	public Vector<Long> findPerfectsTriangles(long lower, long upper) {
+	public synchronized Vector<Long> findPerfectsTriangles(long lower, long upper) {
 		Vector<Long> perfects = new Vector<Long>();
 		long count = 2;
 		long sum =1;
