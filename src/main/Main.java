@@ -9,56 +9,34 @@ import model.PerfectNumberFinder;
 import model.PerfectThread;
 
 public class Main {
+	public static final long LIMIT = (long) 3000000000.0; 
+	public static long upper = 0;
+	public static long lower =0;
 
 	public static void main(String[] args) {
-		
-		
-		System.out.println("1 000 000 2 threads");
-		long start_time = System.currentTimeMillis();
+		int threadAmount = Integer.parseInt(args[0]);
+		Thread[] pool = new Thread[threadAmount];
 		PerfectNumberFinder finder = new PerfectNumberFinder();
 		Vector<Long> perfects = new Vector<Long>();
-		Object lock = new Object();
-		Runnable run1 = () -> {
-			Vector<Long> perfectsRun1 = finder.findPerfectsTriangles(0,500000);
-			synchronized(lock) {
-				perfects.addAll(perfectsRun1);
-			}
-			
-		};
-		Runnable run2 = () -> {
-			Vector<Long> perfectsRun2 = finder.findPerfectsTriangles(500000, 1000000);
-			synchronized(lock) {
-				perfects.addAll(perfectsRun2);
-			}
-		};
-		
-		Thread t1 = new Thread(run1);
-		Thread t2 = new Thread(run2);
-		t1.run();
-		t2.run();
+		long increment = LIMIT/threadAmount;
+		Main.lower = 0;
+		Main.upper = increment;
+		Runnable task = () -> perfects.addAll(finder.findPerfectsTriangles(Main.lower, Main.upper));
+		long start_time = System.currentTimeMillis();
+		for(int i=0; i<threadAmount; i++) {
+			Thread thread = new Thread(task);
+			pool[i] = thread;
+			pool[i].start();
+			Main.lower = Main.upper;
+			Main.upper += increment;
+		}
 		try {
-			t1.join();
-			t2.join();
+			for(int j = 0; j < threadAmount; j++) {
+				pool[j].join();
+			}
 		}catch (Exception e) {
 			System.out.print(e.getMessage());
 		}
-        long end_time = System.currentTimeMillis();
-
-		long elapsed_time = (end_time - start_time);
-		
-		System.out.println("Elasped time: "+ elapsed_time + " millis");
-		
-		System.out.println("Size: "+perfects.size());
-		
-		for(long curr: perfects) {
-			System.out.println(curr + " ");
-		}
-		
-		/* no thread test
-		System.out.println("100 000 000");
-		long start_time = System.currentTimeMillis();
-		PerfectNumberFinder finder = new PerfectNumberFinder(0,100000000);
-		Vector<Long> perfects = finder.findPerfectsTriangles();
 		
         long end_time = System.currentTimeMillis();
 
@@ -71,7 +49,7 @@ public class Main {
 		for(long curr: perfects) {
 			System.out.println(curr + " ");
 		}
-		*/
+		
 		
 		
 		
