@@ -34,7 +34,9 @@ public class Main {
 				Thread thread = new Thread(task);
 				pool[i] = thread;
 				pool[i].start();
-				pool[i].join();
+			}
+			for (int j = 0; j < threadAmount; j++) {
+				pool[j].join();
 			}
 		} catch (Exception e) {
 			System.out.print(e.getMessage());
